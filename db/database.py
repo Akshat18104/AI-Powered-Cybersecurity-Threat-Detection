@@ -6,9 +6,11 @@ DB_PATH = os.path.join(DB_DIR, 'threat_log.db')
 SCHEMA_PATH = os.path.join(DB_DIR, 'schema.sql')
 
 def init_db():
-    conn = sql.connect(DB_DIR)
+    # FIXED: Changed DB_DIR to DB_PATH
+    conn = sql.connect(DB_PATH)
     cursor = conn.cursor()
 
+    # FIXED: Opens SCHEMA_PATH perfectly now
     with open(SCHEMA_PATH, 'r') as f:
         sql_script = f.read()
 
@@ -20,8 +22,5 @@ def init_db():
 
 
 
-
-
 if __name__ == "__main__":
     init_db()
-
