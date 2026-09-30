@@ -42,6 +42,7 @@ def process_threat_metadata(raw_metadata, source_type = "Email Header"):
     cursor = conn.cursor()
 
     for ip in found_ips:
+
         threat_status = ip_reputation(ip)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -51,6 +52,7 @@ def process_threat_metadata(raw_metadata, source_type = "Email Header"):
         )
         result.append({"type":"IP", "value": ip, "status": threat_status})
     for url in found_urls:
+            
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cursor.execute(
         "INSERT INTO logs (timestamp, payload, classification, source) VALUES (?, ?, ?, ?)",
@@ -68,3 +70,4 @@ if __name__ == "__main__":
     extracted = process_threat_metadata(sample_text)
     print(f"Complete. Found and logged: {extracted}")
 
+""" make it so that the data isnt repeated in the database"""
